@@ -48,6 +48,7 @@ away_teams <- nfl_vars %>%
 
 ## Step 5 Combine & Arange ----
 
+#orders the tables so you can view them by team. 
 nfl_clean <- bind_rows(home_teams, away_teams) %>%
   arrange(team, season, week) %>%
   select(season, game_type, week, team, opponent, location, points_for,
