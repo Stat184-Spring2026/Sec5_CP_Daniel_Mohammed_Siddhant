@@ -85,7 +85,7 @@ ggplot(home_result_counts, aes(x = " ", y = n, fill = result)) +
     fill = "Result"
   )
 
-<<<<<<< HEAD
+
 ## Step 8 Create a visualization for away team win rate-----
 #Count the home wins and losses
 away_result_counts <- away_teams %>%
@@ -105,7 +105,5 @@ ggplot(away_result_counts, aes(x = " ", y = n, fill = result)) +
     fill = "Result"
   )
 
-=======
->>>>>>> f061129d82cb8f627c51edbf6cb2ade70674c63b
 
 
