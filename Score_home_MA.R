@@ -58,6 +58,12 @@ nfl_clean <- bind_rows(home_teams, away_teams) %>%
 
 #this step is what allows for analysis because the groups are treated as categories 
 # and not mathmatical numbers. 
+nfl_clean <- nfl_clean %>%
+  mutate(
+    season = as.factor(season),
+    result = as.factor(result),
+    location = as.factor(location)
+  )
 
 # Plot: Home vs Away Avg Points by Season ----
 nfl_filtered %>%
