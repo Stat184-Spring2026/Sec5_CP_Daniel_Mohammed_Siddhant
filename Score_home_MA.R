@@ -59,31 +59,26 @@ nfl_clean <- bind_rows(home_teams, away_teams) %>%
 #this step is what allows for analysis because the groups are treated as categories 
 # and not mathmatical numbers. 
 
-nfl_clean <- nfl_clean %>%
-  mutate(
-    season = as.factor(season),
-    result = as.factor(result),
-    location = as.factor(location)
-  )
-
-# Table 1: Home Scoring Advantage by Season (Regular Season Only) ----
-nfl_table1 <- nfl_filtered %>%
-  filter(game_type == "REG") %>%
+# Plot: Home vs Away Avg Points by Season ----
+nfl_filtered %>%
   group_by(season) %>%
   summarise(
-    avg_pts_home = round(mean(home_score), 2),
-    avg_pts_away = round(mean(away_score), 2),
-    home_scoring_advantage = round(mean(home_score) - mean(away_score), 2),
+    Home = mean(home_score),
+    Away = mean(away_score),
     .groups = "drop"
   ) %>%
-  rename(
-    "Season" = season,
-    "Avg Pts Scored (Home)" = avg_pts_home,
-    "Avg Pts Scored (Away)" = avg_pts_away,
-    "Home Scoring Advantage" = home_scoring_advantage
-  )
-
-# View in RStudio ----
-View(nfl_table1)
-
-
+  pivot_longer(cols = c(Home, Away), 
+               names_to = "location", 
+               values_to = "avg_pts") %>%
+  ggplot(aes(x = season, y = avg_pts, fill = location)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = round(avg_pts, 1)), 
+            position = position_dodge(width = 0.9),
+            vjust = -0.5,
+            size = 3) +
+  labs(
+    title = "Home vs Away Average Points by Season",
+    x = "Season",
+    y = "Average Points"
+  ) +
+  theme_minimal()
