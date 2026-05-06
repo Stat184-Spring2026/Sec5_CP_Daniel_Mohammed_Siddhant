@@ -86,4 +86,24 @@ ggplot(home_result_counts, aes(x = " ", y = n, fill = result)) +
   )
 
 
+## Step 8 Create a visualization for away team win rate-----
+#Count the home wins and losses
+away_result_counts <- away_teams %>%
+  count(result)
+
+ggplot(away_result_counts, aes(x = " ", y = n, fill = result)) +
+  #ggplot does not have a native pie chart so I used column(bar chart) and polar
+  #in order to create a pie chart out of bar charts
+  geom_col(width = 1, color = "white") +
+  coord_polar("y", start = 0) +
+  scale_fill_manual(
+    values = c("Loss" = "#FF0000", "Win" = "#008000"),
+    labels = c("Loss", "Win")
+  ) + 
+  labs(
+    title = "Away Team Win Rate",
+    fill = "Result"
+  )
+
+
 
